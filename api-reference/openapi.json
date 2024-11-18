@@ -1,195 +1,400 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.0.0",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
+    "description": "# Introduction\nThis is an API specification of the ['How to GET a Cup of Coffee' Article by Jim Webber](https://www.infoq.com/articles/webber-rest-workflow/)\n\n\nThe Order resource has the following state lifecycle:\n![Lifecycle for the Order resource](https://jargon.sh/user/jargon/Cafe/v/working/artefacts/statemachine/render.svg?class=Order%20lifecycle&light=true)",
+    "contact": {
+      "email": "you@example.com",
+      "url": "https://example.com/help"
     },
-    "version": "1.0.0"
+    "version": "unreleased",
+    "title": "Coffee Store API"
   },
-  "servers": [
-    {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ],
   "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
+    "/stores/{storeId}/orders": {
+      "post": {
+        "tags": [
+          "Store"
+        ],
         "parameters": [
           {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
+            "name": "storeId",
+            "description": "",
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "number"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
             }
+          }
+        },
+        "summary": "Create a new Store Order",
+        "operationId": "createStoreOrder",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Order"
+              }
+            }
+          }
+        },
+        "description": "Some description of the operation.\n\n***You can use keep using `markdown` here to write out your description in more detail.***\n"
+      }
+    },
+    "/stores/{storeId}/orders/{ordersId}": {
+      "get": {
+        "tags": [
+          "Store"
+        ],
+        "parameters": [
+          {
+            "name": "storeId",
+            "description": "",
+            "schema": {
+              "type": "number"
+            },
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "ordersId",
+            "description": "",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
           }
         ],
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/Order"
                 }
               }
             }
           }
-        }
+        },
+        "summary": "Get a Store Order",
+        "operationId": "getStoreOrderById",
+        "description": "Gets the details of this order"
       },
-      "post": {
-        "description": "Creates a new plant in the store",
+      "put": {
+        "tags": [
+          "Store"
+        ],
+        "parameters": [
+          {
+            "name": "storeId",
+            "description": "",
+            "schema": {
+              "type": "number"
+            },
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "ordersId",
+            "description": "",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Replace a Store Order",
+        "operationId": "replaceStoreOrderById",
         "requestBody": {
-          "description": "Plant to add to the store",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
+                "$ref": "#/components/schemas/Order"
               }
             }
           }
-        }
-      }
-    },
-    "/plants/{id}": {
+        },
+        "description": "Updates this order, but only while it's state is 'Placed'. Updates after this point will be rejected"
+      },
       "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+        "tags": [
+          "Store"
+        ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
+            "name": "storeId",
+            "description": "",
             "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+              "type": "number"
+            },
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "ordersId",
+            "description": "",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
           }
         ],
         "responses": {
           "204": {
-            "description": "Plant deleted",
-            "content": {}
+            "description": "OK"
+          }
+        },
+        "summary": "Delete a Store Order",
+        "operationId": "deleteStoreOrderById",
+        "description": "Removes this order. \n\nCancels the order, if the status is 'Placed'\nCollects the order, if the status is 'Ready'"
+      },
+      "options": {
+        "tags": [
+          "Store"
+        ],
+        "parameters": [
+          {
+            "name": "storeId",
+            "description": "",
+            "schema": {
+              "type": "number"
+            },
+            "in": "path",
+            "required": true
           },
-          "400": {
-            "description": "unexpected error",
+          {
+            "name": "ordersId",
+            "description": "",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/Order"
                 }
               }
             }
           }
-        }
+        },
+        "summary": "Query Store Order",
+        "operationId": "queryStoreOrderById",
+        "description": "Identifies what operations are allowable on this Order"
+      }
+    },
+    "/payments/{id}": {
+      "put": {
+        "tags": [
+          "Payment"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "",
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payment"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Make a Payment",
+        "operationId": "makePaymentById",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Payment"
+              }
+            }
+          }
+        },
+        "description": "Makes a payment for an Order Id"
       }
     }
   },
   "components": {
+    "parameters": {
+      "protective_marking": {
+        "in": "header",
+        "name": "X-Protective-Marking",
+        "schema": {
+          "type": "string"
+        },
+        "x-example": "X-Protective-Marking: VER=<ver>, NS=gov.au, SEC=<securityClassification>",
+        "description": "Transmission of any payload, request or response, containing data classified as having a high business impact level or above SHOULD apply by an ‘x-protective-marking’ HTTP header.\n-\tAn ‘x-protective-marking’ HTTP header MUST be used to apply appropriate protective marking to Commonwealth information classified as having a high business impact level or above (classification of ‘PROTECTED’), and SHOULD be applied to Commonwealth information classified as having a medium business impact level."
+      }
+    },
     "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
+      "Order": {
         "type": "object",
         "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
+          "id": {
+            "type": "number",
+            "description": ""
           },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
+          "milk": {
+            "type": "string",
+            "enum": [
+              "Skim",
+              "Full",
+              "Soy"
+            ],
+            "example": "Skim",
+            "description": ""
+          },
+          "size": {
+            "type": "string",
+            "enum": [
+              "Small",
+              "Regular",
+              "Large"
+            ],
+            "example": "Small",
+            "description": ""
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "Latte",
+              "Flat White"
+            ],
+            "example": "Latte",
+            "description": ""
+          },
+          "status": {
+            "readOnly": true,
+            "type": "string",
+            "enum": [
+              "Placed",
+              "Preparing",
+              "Cancelled",
+              "Ready",
+              "Completed"
+            ],
+            "example": "Placed",
+            "description": ""
           }
         }
       },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
+      "Payment": {
         "type": "object",
         "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
+          "status": {
+            "type": "string",
+            "enum": [
+              "Valid",
+              "Invalid"
+            ],
+            "example": "Valid",
+            "description": ""
           },
-          "message": {
-            "type": "string"
+          "order": {
+            "type": "number",
+            "description": "\nThis field is the identifier of Order (id). It's definition is:\n\n"
+          }
+        }
+      },
+      "Template_ErrorSchema": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Template_Error"
+            },
+            "description": ""
+          }
+        }
+      },
+      "Template_Error": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "readOnly": true,
+            "description": ""
+          },
+          "detail": {
+            "type": "string",
+            "description": ""
+          },
+          "code": {
+            "type": "string",
+            "description": ""
+          },
+          "source": {
+            "$ref": "#/components/schemas/Template_ErrorSource",
+            "description": ""
+          }
+        }
+      },
+      "Template_ErrorSource": {
+        "type": "object",
+        "properties": {
+          "pointer": {
+            "type": "string",
+            "description": ""
+          },
+          "parameter": {
+            "type": "string",
+            "description": ""
           }
         }
       }
     },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
-      }
+    "responses": {},
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "/"
     }
-  }
+  ]
 }
