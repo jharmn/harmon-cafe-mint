@@ -71,7 +71,16 @@
     {
       "group": "API Documentation",
       "pages": [
-        "api-reference/introduction"
+        "api-reference/introduction",
+        "api-reference/openapi.json"
+      ]
+    },
+    {
+      "group": "API Reference Gen'd",
+      "pages": [
+        "get-plants",
+        "post-plants",
+        "delete-plants"
       ]
     },
     {
