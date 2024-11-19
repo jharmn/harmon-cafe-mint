@@ -46,14 +46,6 @@
       "name": "Blog",
       "icon": "newspaper",
       "url": "https://mintlify.com/blog"
-    },
-    {
-      "group": "API Reference Gen'd",
-      "pages": [
-        "get-plants",
-        "post-plants",
-        "delete-plants"
-      ]
     }
   ],
   "navigation": [
@@ -76,29 +68,23 @@
         "essentials/reusable-snippets"
       ]
     },
-    {
-      "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction",
-        "api-reference/openapi.json"
-      ]
-    },
-    {
-      "group": "API Reference Gen'd",
-      "pages": [
-        "get-plants",
-        "post-plants",
-        "delete-plants"
-      ]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
-      ]
-    }
+  {
+    "group": "Store",
+    "pages": [
+      "api-reference/store/create-a-new-store-order",
+      "api-reference/store/get-a-store-order",
+      "api-reference/store/replace-a-store-order",
+      "api-reference/store/delete-a-store-order",
+      "api-reference/store/query-store-order"
+    ]
+  },
+  {
+    "group": "Payment",
+    "pages": [
+      "api-reference/payment/make-a-payment"
+    ]
+  }
+
   ],
   "footerSocials": {
     "x": "https://x.com/mintlify",
