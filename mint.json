@@ -46,6 +46,14 @@
       "name": "Blog",
       "icon": "newspaper",
       "url": "https://mintlify.com/blog"
+    },
+    {
+      "group": "API Reference Gen'd",
+      "pages": [
+        "get-plants",
+        "post-plants",
+        "delete-plants"
+      ]
     }
   ],
   "navigation": [
